@@ -1,4 +1,4 @@
-## 语法特性
+# 语法特性
 - 基本语法：指令(参数1 参数2...)
   - 参数使用括弧括起
   - 参数之间用空格或者逗号分隔
@@ -16,9 +16,8 @@
     if(VARIABLE) # yes
     ```
 
-## 重要指令和cmake常用变量
-- 重要指令
-    ``` sh
+# 重要指令
+    ``` c
     # 指定CMake的最小版本要求
     cmake_minimum_required  
     语法：cmake_minimum_required(VERSION versionNumber [FATAL_ERROR]) 
@@ -26,7 +25,7 @@
     # 定义工程名称，并可指定工程支持的语言 
     project 
     语法：project(projectname [CXX] [C] [Java]) 
-    
+
     # 显式的定义变量 
     set 
     语法：set(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]]) 
@@ -54,7 +53,7 @@
     # 为target添加需要链接的共享库 --->相同于指定g++编译器-l参数
     target_link_libraries 
     语法： target_link_libraries(target library1<debug | optimized> library2...) 
-    
+
     # 向当前工程添加存放源文件的子目录，并可以指定中间二进制和目标二进制存放的位置 
     add_subdirectory 
     语法： add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL]) 
@@ -63,26 +62,32 @@
     aux_source_directory 
     语法： aux_source_directory(dir VARIABLE) 
     ```
-- CMake常用变量
-    ``` sh
+
+# 常用变量
+- 编译选项
+    ``` cmake
     CMAKE_C_FLAGS gcc编译选项
     CMAKE_CXX_FLAGS g++编译选项
     CMAKE_BUILD_TYPE 编译类型(Debug, Release)
     CMAKE_C_COMPILER：指定C编译器
     CMAKE_CXX_COMPILER：指定C++编译器
+    ``` sh
+- 文件、目录
+    ``` cmake
+    # 输入输出路径
     EXECUTABLE_OUTPUT_PATH：可执行文件输出的存放路径
     LIBRARY_OUTPUT_PATH：库文件输出的存放路径
-
-    # 
+    
+    # 工程目录 
     CMAKE_BINARY_DIR 
     PROJECT_BINARY_DIR
     _BINARY_DIR
     1. 这三个变量指代的内容是一致的。
-    2. 如果是 in source build，指的就是工程顶层目录。
-    3. 如果是 out-of-source 编译,指的是工程编译发生的目录。
-    4. PROJECT_BINARY_DIR 跟其他指令稍有区别，不过现在，你可以理解为他们是一致
-    的。
-
+    2. 如果是in source build，指的就是工程顶层目录。
+    3. 如果是out-of-source编译,指的是工程编译发生的目录。
+    4. PROJECT_BINARY_DIR跟其他指令稍有区别，不过现在，你可以理解为他们是一致的。
+- 代码例子
+    ``` cmake
     # 编译main.cpp生成可执行文件main
     add_executable(main main.cpp)
 
@@ -93,7 +98,7 @@
     add_subdirectory(src)
 
     # 定义SRC变量，其值为当前目录下所有的源代码文件
-    aux_source_directory(. SRC)
+    aux_source_directory(.SRC)
 
     # 编译SRC变量所代表的源代码文件，生成main可执行文件
     add_executable(main ${SRC})
@@ -110,7 +115,7 @@
     CMAKE_SOURCE_DIR
     PROJECT_SOURCE_DIR
     _SOURCE_DIR
-    5. 这三个变量指代的内容是一致的,不论采用何种编译方式,都是工程顶层目录。
-    6. 也就是在 in source build时,他跟 CMAKE_BINARY_DIR 等变量一致。
-    7. PROJECT_SOURCE_DIR 跟其他指令稍有区别,现在,你可以理解为他们是一致的。
+    1. 这三个变量指代的内容是一致的,不论采用何种编译方式,都是工程顶层目录。
+    2. 也就是在 in source build时,他跟 CMAKE_BINARY_DIR 等变量一致。
+    3. PROJECT_SOURCE_DIR 跟其他指令稍有区别,现在,你可以理解为他们是一致的。
     ```   

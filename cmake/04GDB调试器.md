@@ -1,4 +1,4 @@
-## 常用调试参数
+# 常用调试参数
 调试开始：执行gdb[exefilename]，exefilename是要调试的可执行文件名
 
 说明：
